@@ -41,6 +41,7 @@ grails.views.default.codec = "html"
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'
 
+grails.plugin.springsecurity.securityConfigType = 'Requestmap'
 // GSP settings
 grails {
     views {
@@ -115,3 +116,22 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.hank.Person'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.hank.PersonAuthority'
+grails.plugin.springsecurity.authority.className = 'com.hank.Authority'
+grails.plugin.springsecurity.requestMap.className = 'com.hank.Requestmap'
+grails.plugin.springsecurity.securityConfigType = 'Requestmap'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+	'/index':           ['permitAll'],
+	'/index.gsp':       ['permitAll'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll']
+]
+
