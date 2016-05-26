@@ -124,6 +124,7 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.hank.Perso
 grails.plugin.springsecurity.authority.className = 'com.hank.Authority'
 grails.plugin.springsecurity.requestMap.className = 'com.hank.Requestmap'
 grails.plugin.springsecurity.securityConfigType = 'Requestmap'
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/bus/index'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
 	'/index':           ['permitAll'],

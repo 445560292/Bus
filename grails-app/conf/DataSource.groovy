@@ -3,12 +3,12 @@ dataSource {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     username = "root"
-    password = "156346550"
+    password = "root"
 }
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
-    show_sql=true
+    show_sql=false
 //    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory' // Hibernate 3
     cache.region.factory_class = 'org.hibernate.cache.ehcache.EhCacheRegionFactory' // Hibernate 4
     singleSession = true // configure OSIV singleSession mode
@@ -20,7 +20,7 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://127.0.0.1:3306/bus"
+            url = "jdbc:mysql://127.0.0.1:3306/bus?useUnicode=yes&characterEncoding=GB2312"
         }
     }
     test {

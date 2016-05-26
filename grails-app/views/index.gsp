@@ -2,121 +2,213 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=xAtEtZe8LeRKoqomjAEp8UHDKppRGYWw"></script>
+		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 		<title>Welcome to Grails</title>
-		<style type="text/css" media="screen">
-			#status {
-				background-color: #eee;
-				border: .2em solid #fff;
-				margin: 2em 2em 1em;
-				padding: 1em;
-				width: 12em;
-				float: left;
-				-moz-box-shadow: 0px 0px 1.25em #ccc;
-				-webkit-box-shadow: 0px 0px 1.25em #ccc;
-				box-shadow: 0px 0px 1.25em #ccc;
-				-moz-border-radius: 0.6em;
-				-webkit-border-radius: 0.6em;
-				border-radius: 0.6em;
+		<asset:javascript src="application.js"/>
+
+		<script type="text/javascript">
+			// Firefox, Google Chrome, Opera, Safari, Internet Explorer from version 9
+
+			function OnInput1 (event) {
+//3.$.ajax拼接url的异步请求
+				var yz=$.ajax({
+					type:'post',
+					url:'/Bus/station/search?name=' + $( "#searchByBus1" ).val(),
+					data:{},
+					cache:false,
+					dataType:'json',
+					success:function(data){
+
+						$( "#searchByBus1" ).typeahead(
+								{
+									source: data
+								});
+					},
+					error:function(){}
+				});
 			}
 
-			.ie6 #status {
-				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
+			function OnInput2 (event) {
+//3.$.ajax拼接url的异步请求
+				var yz=$.ajax({
+					type:'post',
+					url:'/Bus/station/search?name=' + $( "#searchByBus2" ).val(),
+					data:{},
+					cache:false,
+					dataType:'json',
+					success:function(data){
+						$( "#searchByBus2" ).typeahead(
+								{
+									source: data
+								});
+					},
+					error:function(){}
+				});
 			}
 
-			#status ul {
-				font-size: 0.9em;
-				list-style-type: none;
-				margin-bottom: 0.6em;
-				padding: 0;
+			function OnInput3 (event) {
+//3.$.ajax拼接url的异步请求
+				var yz=$.ajax({
+					type:'post',
+					url:'/Bus/station/search?name=' + $( "#searchByBus3" ).val(),
+					data:{},
+					cache:false,
+					dataType:'json',
+					success:function(data){
+						$( "#searchByBus3" ).typeahead(
+								{
+									source: data
+								});
+					},
+					error:function(){}
+				});
 			}
 
-			#status li {
-				line-height: 1.3;
+			function OnInput4 (event) {
+//3.$.ajax拼接url的异步请求
+				var yz=$.ajax({
+					type:'post',
+					url:'/Bus/station/search?name=' + $( "#searchByBus4" ).val(),
+					data:{},
+					cache:false,
+					dataType:'json',
+					success:function(data){
+						$( "#searchByBus4" ).typeahead(
+								{
+									source: data
+								});
+					},
+					error:function(){}
+				});
 			}
 
-			#status h1 {
-				text-transform: uppercase;
-				font-size: 1.1em;
-				margin: 0 0 0.3em;
+			function OnInput5 (event) {
+//3.$.ajax拼接url的异步请求
+
+				var yz=$.ajax({
+					type:'post',
+					url:'/Bus/bus/searchByName?name=' + $( "#searchByBus5" ).val(),
+					data:{},
+					cache:false,
+					dataType:'json',
+					success:function(data){
+						$( "#searchByBus5" ).typeahead(
+								{
+									source: data
+								});
+					},
+					error:function(){}
+				});
 			}
 
-			#page-body {
-				margin: 2em 1em 1.25em 18em;
-			}
-
-			h2 {
-				margin-top: 1em;
-				margin-bottom: 0.3em;
-				font-size: 1em;
-			}
-
-			p {
-				line-height: 1.5;
-				margin: 0.25em 0;
-			}
-
-			#controller-list ul {
-				list-style-position: inside;
-			}
-
-			#controller-list li {
-				line-height: 1.3;
-				list-style-position: inside;
-				margin: 0.25em 0;
-			}
-
-			@media screen and (max-width: 480px) {
-				#status {
-					display: none;
-				}
-
-				#page-body {
-					margin: 0 1em 1em;
-				}
-
-				#page-body h1 {
-					margin-top: 0;
-				}
-			}
-		</style>
+		</script>
 	</head>
 	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${GroovySystem.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
+	<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #5bc0de">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" style="color: #080808; font-weight: 900;font-size: x-large">公交系统查询</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<form class="navbar-form navbar-right" action='/Bus/j_spring_security_check' method="post">
+					<div class="form-group">
+						<input type="text"  class="form-control" placeholder="Username" name='j_username' id='username'>
+					</div>
+					<div class="form-group">
+						<input type="password" name = 'j_password' id="password" placeholder="Password" class="form-control">
+					</div>
+					<button type="submit" class="btn btn-success">Sign in</button>
+				</form>
+			</div><!--/.navbar-collapse -->
 		</div>
-		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+	</nav>
 
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
+	<div id="myCarousel" class="carousel slide" style="margin-top: 20px">
+		<!-- 轮播（Carousel）指标 -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+		<!-- 轮播（Carousel）项目 -->
+		<div class="carousel-inner">
+			<div class="item active">
+				<img src="images/430642_111954000_2.jpg" alt="First slide" style=" margin: 0 auto; height: 300px; width: 400px">
+				<div class="carousel-caption">标题 1</div>
+			</div>
+			<div class="item">
+				<img src="images/20140626080129_75157.jpg" alt="Second slide" style=" margin: 0 auto; height: 300px; width: 400px">
+				<div class="carousel-caption">标题 2</div>
+			</div>
+			<div class="item">
+				<img src="images/2496884_072100005_2.jpg" alt="Third slide" style=" margin: 0 auto; height: 300px; width: 400px">
+				<div class="carousel-caption">标题 3</div>
 			</div>
 		</div>
+		<!-- 轮播（Carousel）导航 -->
+		<a class="carousel-control left" href="#myCarousel"
+		   data-slide="prev">&lsaquo;</a>
+		<a class="carousel-control right" href="#myCarousel"
+		   data-slide="next">&rsaquo;</a>
+	</div>
+
+	<div class="container">
+		<!-- Example row of columns -->
+		<div class="row">
+			<div class="col-md-4">
+				<h2>车次查询</h2>
+				<form class="form-horizontal"   action='/Bus/search/searchByBus' method="post">
+						<div class="input-group">
+							<input id="searchByBus5" oninput="OnInput5()"  type="text" class="form-control" name="name" placeholder="输入线路名称....">
+							<button class="btn btn-default" type="submit" style="margin-top: 10px">查询</button>
+						</div>
+				</form><!-- /input-group >
+				</div><!-- /.row -->
+
+			</div>
+
+		<div class="col-md-4">
+			<form class="form-horizontal" action='/Bus/search/searchByOneTransfer' method="post">
+				<h2>线路查询-少换乘</h2>
+				<div class="form-group" style="margin-bottom: 10px;margin-left: 10px">
+					<label>
+						<input type="checkbox", name="map",id="map" value="map"> 百度地图
+					</label>
+				</div>
+				<div class="input-group  ">
+					<input type="hidden", name="lessTime", value="false">
+					<input type="text" id="searchByBus1" autocomplete=off oninput="OnInput1()" name="start" class="form-control" placeholder="输入起点地点....">
+					<input type="text" id="searchByBus2" oninput="OnInput2()" name="des" class="form-control" placeholder="输入目的地点...." style="margin-top: 10px">
+					<button class="btn btn-default" type="submit" style="margin-top: 10px">查询</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-4">
+			<form class="form-horizontal" action='/Bus/search/search' method="post">
+				<h2>线路查询-路程短</h2>
+
+				<div class="input-group">
+					<input type="hidden", name="lessTime", value="true">
+					<input type="text" id="searchByBus3" oninput="OnInput3()" name="start" class="form-control" placeholder="输入起点地点....">
+					<input type="text" id="searchByBus4" oninput="OnInput4()" name="des" class="form-control" placeholder="输入目的地点...." style="margin-top: 10px">
+					<button class="btn btn-default" type="submit" style="margin-top: 10px">查询</button>
+				</div>
+			</form>
+		</div>
+		</div>
+		<hr>
+		<footer>
+			<div><p style="margin:0 auto; text-align: center"> &copy; Company 2016</p></div>
+		</footer>
+	</div> <!-- /container -->
 	</body>
 </html>
+
