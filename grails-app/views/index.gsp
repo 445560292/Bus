@@ -6,7 +6,15 @@
 		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 		<title>Welcome to Grails</title>
 		<asset:javascript src="application.js"/>
-
+		<style>
+		.ui-autocomplete-category {
+			font-weight: bold;
+			padding: .2em .4em;
+			margin: .8em 0 .2em;
+			line-height: 1.5;
+			background-color: #0B90C4;
+		}
+		</style>
 		<script type="text/javascript">
 			// Firefox, Google Chrome, Opera, Safari, Internet Explorer from version 9
 
@@ -20,10 +28,13 @@
 					dataType:'json',
 					success:function(data){
 
-						$( "#searchByBus1" ).typeahead(
-								{
-									source: data
-								});
+						$( "#searchByBus1" ).autocomplete({
+							source: data
+						});
+//						$( "#searchByBus1" ).typeahead(
+//								{
+//									source: data
+//								});
 					},
 					error:function(){}
 				});
@@ -38,10 +49,9 @@
 					cache:false,
 					dataType:'json',
 					success:function(data){
-						$( "#searchByBus2" ).typeahead(
-								{
-									source: data
-								});
+						$( "#searchByBus2" ).autocomplete({
+							source: data
+						});
 					},
 					error:function(){}
 				});
@@ -56,10 +66,9 @@
 					cache:false,
 					dataType:'json',
 					success:function(data){
-						$( "#searchByBus3" ).typeahead(
-								{
-									source: data
-								});
+						$( "#searchByBus3" ).autocomplete({
+							source: data
+						});
 					},
 					error:function(){}
 				});
@@ -74,10 +83,9 @@
 					cache:false,
 					dataType:'json',
 					success:function(data){
-						$( "#searchByBus4" ).typeahead(
-								{
-									source: data
-								});
+						$( "#searchByBus4" ).autocomplete({
+							source: data
+						});
 					},
 					error:function(){}
 				});
@@ -93,14 +101,81 @@
 					cache:false,
 					dataType:'json',
 					success:function(data){
-						$( "#searchByBus5" ).typeahead(
-								{
-									source: data
-								});
+						$( "#searchByBus5" ).autocomplete({
+							source: data
+						});
 					},
 					error:function(){}
 				});
 			}
+			function OnInput6 (event) {
+//3.$.ajax拼接url的异步请求
+
+				var yz=$.ajax({
+					type:'post',
+					url:'/Bus/search/searchLocation?name=' + $( "#searchLocation" ).val(),
+					data:{},
+					cache:false,
+					dataType:'json',
+					success:function(data){
+						$( "#searchLocation" ).autocomplete({
+							source: data
+						});
+					},
+					error:function(){}
+				});
+			}
+			function submitSearch (event) {
+//3.$.ajax拼接url的异步请求
+
+				var yz=$.ajax({
+					type:'post',
+					url:'/Bus/search/searchStationByLocation?name=' + $( "#searchLocation" ).val(),
+					data:{},
+					cache:false,
+					dataType:'json',
+					success:function(data){
+						var trs = "";
+						$.each(data,function(n,value) {
+							trs += " " + value.name;
+						});
+						$('#modal-body').text(trs +" 等几个站点")
+						$('#myModal').modal('show')
+					},
+					error:function(){
+
+					}
+				});
+
+
+			}
+
+
+			function submitSearchLineByLocation (event) {
+//3.$.ajax拼接url的异步请求
+
+				var yz=$.ajax({
+					type:'post',
+					url:'/Bus/search/searchLineByStation?name=' + $( "#searchLineByLoacation" ).val(),
+					data:{},
+					cache:false,
+					dataType:'json',
+					success:function(data){
+						var trs = "";
+						$.each(data,function(n,value) {
+							trs += " " + value;
+						});
+						$('#modal-body').text(trs +" 等几个线路")
+						$('#myModal').modal('show')
+					},
+					error:function(){
+
+					}
+				});
+
+
+			}
+
 
 		</script>
 	</head>
@@ -204,11 +279,105 @@
 			</form>
 		</div>
 		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<h2>附近站点查询</h2>
+				<form class="form-horizontal">
+					<div class="input-group">
+						<input id="searchLocation" oninput="OnInput6()"  type="text" class="form-control" name="name" placeholder="输入地点名称....">
+						<button class="btn btn-default" type="button"  onclick="submitSearch()" style="margin-top: 10px">查询</button>
+					</div>
+				</form><!-- /input-group >
+				</div><!-- /.row -->
+			</div>
+
+
+			<div class="col-md-4">
+				<h2>站点 - 线路 查询</h2>
+				<form class="form-horizontal">
+					<div class="input-group">
+						<input id="searchLineByLoacation" oninput="OnInput7()"  type="text" class="form-control" name="name" placeholder="输入地点名称....">
+						<button class="btn btn-default" type="button"  onclick="submitSearchLineByLocation()" style="margin-top: 10px">查询</button>
+					</div>
+				</form><!-- /input-group >
+				</div><!-- /.row -->
+			</div>
+		</div>
 		<hr>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+			 aria-hidden="true">
+
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<h3>公交站点</h3>
+					</div>
+					<div class="modal-body">
+						<p id = "modal-body">Here settings can be configured...</p>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+					</div>
+				</div>
+			</div>
+		</div>
 		<footer>
 			<div><p style="margin:0 auto; text-align: center"> &copy; Company 2016</p></div>
 		</footer>
 	</div> <!-- /container -->
+
+	%{--<div style="width:600px;height:340px;border:1px solid gray;float:left;" id="container-map"></div>--}%
+	%{--<div style="width:300px;height:340px;border:1px solid gray;border-left:0;float:left;" id="panel"></div>--}%
+
+	<script type="text/javascript">
+		var map = new BMap.Map("container-map");
+//		var yz=$.ajax({
+//			type:'get',
+//			url:'/Bus/station/getAllStation' ,
+//			data:{},
+//			cache:false,
+//			dataType:'json',
+//			success:function(data){
+//
+//				$.each(data,function(item,value){
+//					if(value.strlats !=''){
+//						var mPoint = new BMap.Point(value.strlons, value.strlats);
+//						map.centerAndZoom(mPoint, 16);
+//						map.enableScrollWheelZoom();        //启用滚轮缩放
+//
+//						var mOption = {
+//							poiRadius : 500,           //半径为1000米内的POI,默认100米
+//							numPois : 12                //列举出50个POI,默认10个
+//						}
+//
+//						var myGeo = new BMap.Geocoder();        //创建地址解析实例
+//						map.addOverlay(new BMap.Circle(mPoint,500));        //添加一个圆形覆盖物
+//						myGeo.getLocation(mPoint,
+//								function mCallback(rs){
+//									var allPois = rs.surroundingPois;       //获取全部POI（该点半径为100米内有6个POI点）
+//									for(i=0;i<allPois.length;++i){
+//										document.getElementById("panel").innerHTML += value.name + ":" + allPois[i].title+"/";
+//										map.addOverlay(new BMap.Marker(allPois[i].point));
+//									}
+//								},mOption
+//						);
+//
+//					}
+//
+//				})
+//			},
+//			error:function(msg){
+//				alert(msg);
+//			}
+//		});
+
+
+
+
+	</script>
+
 	</body>
+
 </html>
 
